@@ -25,6 +25,10 @@ class ViewController: UIViewController {
         scoreLabel.textAlignment = .right
         scoreLabel.text = "Score: 0"
         view.addSubview(scoreLabel)
+        
+        NSLayoutConstraint.activate([scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        ])
     }
     
     
