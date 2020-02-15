@@ -9,11 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cluesLabel: UILabel!
-    var answersLabel: UILabel!
-    var currentAnswer: UITextField!
-    var scoreLabel: UILabel!
-    var letterButtons = [UIButton]()
+    var cluesLabel: UILabel! //label
+    var answersLabel: UILabel! //labes
+    var currentAnswer: UITextField! //raspunsul la moment
+    var scoreLabel: UILabel! // score label
+    var letterButtons = [UIButton]() //butoanele cu lyrics
     
     var activatedButtons = [UIButton]()
     var solutions = [String]()
@@ -74,6 +74,7 @@ class ViewController: UIViewController {
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
        
+        //activating the layout constraints
         NSLayoutConstraint.activate([scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             
@@ -128,7 +129,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        loadLevel()
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -147,7 +149,7 @@ class ViewController: UIViewController {
     func loadLevel() {
         var clueString = ""
         var solutionsString = ""
-        var letterBits = [String]()
+        var wordBits = [String]()
         
         // creating the path file
         if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") {
@@ -160,23 +162,34 @@ class ViewController: UIViewController {
                     let answer = parts[0]
                     let clue = parts[1]
                     
-                    clueString += "\(index + 1). \(clue)\n" //adding the nr of reference to each line
+                    clueString += "\(index + 1). \(clue)\n" //adding the nr of reference to each line in order to display
                     
-                    let solutionLyrics = answer.replacingOccurrences(of: "|", with: "")
+                    let solutionWord = answer.replacingOccurrences(of: "|", with: " ")
                     
-                    solutionsString += "\(solutionLyrics.count) words\n"
-                    solutions.append(solutionLyrics)
+                    let usingForWordsNr = solutionWord.split(separator: " ", maxSplits: Int.max)
+                 
+                    solutionsString += "\(usingForWordsNr.count) words\n"
+                    solutions.append(solutionsString)
                     
-                    let bits = answer.components(separatedBy: "|")
-                    letterBits += bits
+                    let bits = answer.components(separatedBy: "|")  //the bits of words as lyrics
+                    wordBits += bits
                     
                 }
             }
         }
             
             cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-            answersLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+            answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        letterButtons.shuffle()
 
+        if letterButtons.count == wordBits.count {
+            for i in 0..<letterButtons.count {
+                letterButtons[i].setTitle(wordBits[i], for: .normal)
+            }
+        }
     }
 }
+
+
 

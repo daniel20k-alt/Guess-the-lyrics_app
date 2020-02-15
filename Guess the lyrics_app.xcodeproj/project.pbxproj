@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE4C43F123F88C530054365D /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE4C43EF23F88C530054365D /* level1.txt */; };
+		EE4C43F223F88C530054365D /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE4C43F023F88C530054365D /* level2.txt */; };
 		EE52F81823F51F7C001E6348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F81723F51F7C001E6348 /* AppDelegate.swift */; };
 		EE52F81A23F51F7C001E6348 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F81923F51F7C001E6348 /* SceneDelegate.swift */; };
 		EE52F81C23F51F7C001E6348 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F81B23F51F7C001E6348 /* ViewController.swift */; };
 		EE52F81F23F51F7C001E6348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52F81D23F51F7C001E6348 /* Main.storyboard */; };
 		EE52F82123F51F87001E6348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE52F82023F51F87001E6348 /* Assets.xcassets */; };
 		EE52F82423F51F87001E6348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52F82223F51F87001E6348 /* LaunchScreen.storyboard */; };
-		EE52F82D23F83978001E6348 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE52F82B23F83977001E6348 /* level1.txt */; };
-		EE52F82E23F83978001E6348 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE52F82C23F83978001E6348 /* level2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE4C43EF23F88C530054365D /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
+		EE4C43F023F88C530054365D /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		EE52F81423F51F7C001E6348 /* Guess the lyrics_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess the lyrics_app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52F81723F51F7C001E6348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE52F81923F51F7C001E6348 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,8 +28,6 @@
 		EE52F82023F51F87001E6348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE52F82323F51F87001E6348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE52F82523F51F87001E6348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE52F82B23F83977001E6348 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
-		EE52F82C23F83978001E6348 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +67,8 @@
 				EE52F82023F51F87001E6348 /* Assets.xcassets */,
 				EE52F82223F51F87001E6348 /* LaunchScreen.storyboard */,
 				EE52F82523F51F87001E6348 /* Info.plist */,
-				EE52F82B23F83977001E6348 /* level1.txt */,
-				EE52F82C23F83978001E6348 /* level2.txt */,
+				EE4C43EF23F88C530054365D /* level1.txt */,
+				EE4C43F023F88C530054365D /* level2.txt */,
 			);
 			path = "Guess the lyrics_app";
 			sourceTree = "<group>";
@@ -131,9 +131,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE52F82E23F83978001E6348 /* level2.txt in Resources */,
+				EE4C43F223F88C530054365D /* level2.txt in Resources */,
 				EE52F82423F51F87001E6348 /* LaunchScreen.storyboard in Resources */,
-				EE52F82D23F83978001E6348 /* level1.txt in Resources */,
+				EE4C43F123F88C530054365D /* level1.txt in Resources */,
 				EE52F82123F51F87001E6348 /* Assets.xcassets in Resources */,
 				EE52F81F23F51F7C001E6348 /* Main.storyboard in Resources */,
 			);
