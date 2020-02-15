@@ -186,10 +186,10 @@ class ViewController: UIViewController {
         if letterButtons.count == wordBits.count {
             for i in 0..<letterButtons.count {
                 letterButtons[i].setTitle(wordBits[i], for: .normal)
+
             }
         }
     }
 }
-
 
 
