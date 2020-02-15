@@ -167,16 +167,16 @@ class ViewController: UIViewController {
                     solutionsString += "\(solutionLyrics.count) words\n"
                     solutions.append(solutionLyrics)
                     
-                    
-                    
+                    let bits = answer.components(separatedBy: "|")
+                    letterBits += bits
                     
                 }
             }
         }
+            
+            cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+            answersLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+
     }
-    
-    
-    
-    
 }
 
