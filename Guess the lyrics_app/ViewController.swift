@@ -160,7 +160,16 @@ class ViewController: UIViewController {
                     let answer = parts[0]
                     let clue = parts[1]
                     
-                    clueString += "\(index + 1). \(clue)\n" //adding the nr of reference to each line 
+                    clueString += "\(index + 1). \(clue)\n" //adding the nr of reference to each line
+                    
+                    let solutionLyrics = answer.replacingOccurrences(of: "|", with: "")
+                    
+                    solutionsString += "\(solutionLyrics.count) words\n"
+                    solutions.append(solutionLyrics)
+                    
+                    
+                    
+                    
                 }
             }
         }
