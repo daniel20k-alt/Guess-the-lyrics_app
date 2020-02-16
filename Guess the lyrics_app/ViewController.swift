@@ -163,6 +163,18 @@ class ViewController: UIViewController {
             
         }
     }
+    
+    func levelUp(action: UIAlertAction) {
+        level += 1
+        
+        solutions.removeAll(keepingCapacity: true)
+        loadLevel()
+        
+        for button in letterButtons {
+            button.isHidden = false
+        }
+    }
+
     //clear out all the text in the fields, and remove all items form the array
     @objc func clearTapped(_ sender: UIButton) {
         
