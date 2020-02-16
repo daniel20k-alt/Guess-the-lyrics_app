@@ -73,38 +73,38 @@ class ViewController: UIViewController {
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
-       
+        
         //activating the layout constraints
         NSLayoutConstraint.activate([scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            
-            cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
-            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
-            
-            
-            answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
-            answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
-            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
-            
-            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
-            
-            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
-            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
-            submit.heightAnchor.constraint(equalToConstant: 44),
-            
-            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-            clear.heightAnchor.constraint(equalToConstant: 44),
-            
-            buttonsView.widthAnchor.constraint(equalToConstant: 750),
-            buttonsView.heightAnchor.constraint(equalToConstant: 320),
-            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+                                     scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+                                     
+                                     cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+                                     cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+                                     cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
+                                     
+                                     
+                                     answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+                                     answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
+                                     answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
+                                     answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
+                                     
+                                     currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+                                     currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
+                                     
+                                     submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
+                                     submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
+                                     submit.heightAnchor.constraint(equalToConstant: 44),
+                                     
+                                     clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+                                     clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
+                                     clear.heightAnchor.constraint(equalToConstant: 44),
+                                     
+                                     buttonsView.widthAnchor.constraint(equalToConstant: 750),
+                                     buttonsView.heightAnchor.constraint(equalToConstant: 320),
+                                     buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
+                                     buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
         
         // adding constraints to buttons so it would be easier to reference them
@@ -132,17 +132,46 @@ class ViewController: UIViewController {
         
         loadLevel()
     }
-    
+    //what happens when the letters are tapped
     @objc func letterTapped(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text else { return }
         
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        activatedButtons.append(sender)
+        sender.isHidden = true //hides the button so it cannot be pressed multiple times
     }
     
+    //will search through the solutions array a button, and if found - will show its position
     @objc func submitTapped(_ sender: UIButton) {
+        guard let answerText = currentAnswer.text else { return }
         
+        if let solutionPosition = solutions.firstIndex(of: answerText) {
+        activatedButtons.removeAll()
+        
+        var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
+        splitAnswers?[solutionPosition] = answerText
+            answersLabel.text = splitAnswers?.joined(separator: "\n")
+            
+            currentAnswer.text = ""
+            score += 1
+            
+            if score % 7 == 0 {
+                let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
+                present(ac, animated: true)
+            }
+            
+        }
     }
-    
+    //clear out all the text in the fields, and remove all items form the array
     @objc func clearTapped(_ sender: UIButton) {
         
+        currentAnswer.text = ""
+        for button in activatedButtons {
+            button.isHidden = false
+        }
+        
+        activatedButtons.removeAll()
     }
     
     // creating a function for loading levels
@@ -167,7 +196,7 @@ class ViewController: UIViewController {
                     let solutionWord = answer.replacingOccurrences(of: "|", with: " ")
                     
                     let usingForWordsNr = solutionWord.split(separator: " ", maxSplits: Int.max)
-                 
+                    
                     solutionsString += "\(usingForWordsNr.count) words\n"
                     solutions.append(solutionsString)
                     
@@ -177,19 +206,23 @@ class ViewController: UIViewController {
                 }
             }
         }
-            
-            cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-            answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+        answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
         
         letterButtons.shuffle()
-
+        
         if letterButtons.count == wordBits.count {
             for i in 0..<letterButtons.count {
                 letterButtons[i].setTitle(wordBits[i], for: .normal)
-
+                
             }
         }
     }
 }
+
+//TODO: to fix the issue that letterButtons.count has to be the same as wordBits.count
+// this would not allow more words in a lyrics
+// some lyrics might not make sense with few words
 
 
