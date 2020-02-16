@@ -18,7 +18,11 @@ class ViewController: UIViewController {
     var activatedButtons = [UIButton]()
     var solutions = [String]()
     
-    var score = 0
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score \(score)"
+        }
+    }
     var level = 1
     
     
@@ -136,31 +140,36 @@ class ViewController: UIViewController {
     @objc func letterTapped(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text else { return }
         
-        currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle + " ")
+//currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        
         activatedButtons.append(sender)
         sender.isHidden = true //hides the button so it cannot be pressed multiple times
+         
     }
     
     //will search through the solutions array a button, and if found - will show its position
     @objc func submitTapped(_ sender: UIButton) {
-        guard let answerText = currentAnswer.text else { return }
         
-        if let solutionPosition = solutions.firstIndex(of: answerText) {
-        activatedButtons.removeAll()
-        
-        var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
-        splitAnswers?[solutionPosition] = answerText
+        guard let answerTextRead = currentAnswer.text else { return }
+        if let solutionPosition = solutions.firstIndex(of: answerTextRead) {
+
+            var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
+            splitAnswers?[solutionPosition] = answerTextRead
+
             answersLabel.text = splitAnswers?.joined(separator: "\n")
+
             
             currentAnswer.text = ""
             score += 1
-            
+
             if score % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
+                            activatedButtons.removeAll()
             }
-            
+
         }
     }
     
